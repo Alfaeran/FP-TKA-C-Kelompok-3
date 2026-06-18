@@ -1,0 +1,38 @@
+# ──────────────────────────────────────────────
+# docker-compose.yml — Backend + Frontend (Nginx)
+# Lokasi: root repositori
+# ──────────────────────────────────────────────
+
+services:
+  # ── Backend (Flask + Gunicorn) ─────────────
+  backend:
+    build:
+      context: ./Resources/BE
+      dockerfile: Dockerfile
+    container_name: ecommerce-backend
+    environment:
+      - MONGO_URI=${MONGO_URI:-mongodb://host.docker.internal:27017/}
+      - JWT_SECRET=${JWT_SECRET:-ganti-ini-di-production}
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # ── Frontend (Nginx — Static + Reverse Proxy)
+  frontend:
+    image: nginx:alpine
+    container_name: ecommerce-frontend
+    ports:
+      - "80:80"
+    volumes:
+      - ./Resources/FE:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
