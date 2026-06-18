@@ -12,12 +12,24 @@ client = MongoClient(MONGO_URI)
 db = client.orderdb
 orders_collection = db.orders
 
+# Helper function: Menerjemahkan tipe data bawaan MongoDB agar bisa dibaca JSON
+def sanitize_mongo_data(data):
+    if isinstance(data, list):
+        return [sanitize_mongo_data(item) for item in data]
+    elif isinstance(data, dict):
+        for key, value in data.items():
+            if type(value).__name__ == 'ObjectId':
+                data[key] = str(value)
+            elif type(value).__name__ == 'datetime':
+                data[key] = value.isoformat()
+        return data
+    return data
+
 # 1. Create Order
 @app.route('/order', methods=['POST'])
 def create_order():
     data = request.get_json()
     
-    # Validasi input
     if not data or 'product' not in data or 'quantity' not in data or 'price' not in data:
         return jsonify({"error": "Bad Request: Missing fields"}), 400
 
@@ -35,26 +47,22 @@ def create_order():
         "created_at": created_at
     }
 
-    # Insert ke database (buat salinan agar _id default mongo tidak ikut ter-return)
     orders_collection.insert_one(new_order.copy())
-    
-    return jsonify(new_order), 201
+    return jsonify(sanitize_mongo_data(new_order)), 201
 
 # 2. Get Order Status
 @app.route('/order/<order_id>', methods=['GET'])
 def get_order(order_id):
-    # Cari order, sembunyikan object _id bawaan mongo
-    order = orders_collection.find_one({"order_id": order_id}, {"_id": 0})
+    order = orders_collection.find_one({"order_id": order_id})
     if order:
-        return jsonify(order), 200
+        return jsonify(sanitize_mongo_data(order)), 200
     return jsonify({"error": "Order not found"}), 404
 
 # 3. Get Order History
 @app.route('/orders', methods=['GET'])
 def get_orders():
-    # Ambil semua order, urutkan dari yang terbaru (-1)
-    orders = list(orders_collection.find({}, {"_id": 0}).sort("created_at", -1))
-    return jsonify(orders), 200
+    orders = list(orders_collection.find().sort("created_at", -1))
+    return jsonify(sanitize_mongo_data(orders)), 200
 
 # 4. Update Order Status
 @app.route('/order/<order_id>', methods=['PUT'])
