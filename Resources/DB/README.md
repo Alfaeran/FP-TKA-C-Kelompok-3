@@ -52,7 +52,7 @@ Bagian ini mendokumentasikan hasil pengujian fungsionalitas REST API menggunakan
 <details>
 <summary>Klik untuk melihat Screenshot Postman</summary>
 
-![POST Create Order](./result/post_order.png)
+![POST Create Order]("./assets/Screenshot (2172).png").
 
 </details>
 
