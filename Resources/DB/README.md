@@ -49,28 +49,20 @@ Bagian ini mendokumentasikan hasil pengujian fungsionalitas REST API menggunakan
 * **Deskripsi:** Membuat pesanan baru dan menyimpan data dengan status awal "pending".
 * **Status Code:** 201 Created
 * **Bukti Pengujian:**
-<details>
-<summary>Klik untuk melihat Screenshot Postman</summary>
 
-![POST Create Order](./assets/Screenshot%20(2172).png)
-
-</details>
+![Alt Text](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/917ee7e5a532aaaa7d751354cfe6a412fcd0bb07/Resources/assets/Screenshot%20(2172).png)
 
 ### 2. Get Order Status
 * **Method & Endpoint:** `GET /order/<order_id>`
 * **Deskripsi:** Mengambil status dan detail sebuah pesanan berdasarkan `order_id`.
 * **Status Code:** 200 OK (Berhasil) & 404 Not Found (Skenario Error Handling)
 * **Bukti Pengujian:**
-<details>
-<summary>Klik untuk melihat Screenshot Postman (200 OK)</summary>
 
-![GET Order Status OK](./assets/Screenshot%20(2173).png)
+![Alt Text](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/917ee7e5a532aaaa7d751354cfe6a412fcd0bb07/Resources/assets/Screenshot%20(2173).png)
 
-</details>
-<details>
-<summary>Klik untuk melihat Screenshot Postman (404 Not Found)</summary>
+**versi order id yang error**
 
-![GET Order Status 404](./assets/Screenshot%20(2174).png)
+![Alt Text](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/917ee7e5a532aaaa7d751354cfe6a412fcd0bb07/Resources/assets/Screenshot%20(2174).png)
 
 </details>
 
@@ -79,31 +71,17 @@ Bagian ini mendokumentasikan hasil pengujian fungsionalitas REST API menggunakan
 * **Deskripsi:** Mengubah status pesanan dari "pending" menjadi "completed".
 * **Status Code:** 200 OK
 * **Bukti Pengujian:**
-<details>
-<summary>Klik untuk melihat Screenshot Postman</summary>
+![Alt Text](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/917ee7e5a532aaaa7d751354cfe6a412fcd0bb07/Resources/assets/Screenshot%20(2175).png)
 
-![PUT Update Order](./assets/Screenshot%20(2175).png)
-
-</details>
 
 ### 4. Get Order History
 * **Method & Endpoint:** `GET /orders`
 * **Deskripsi:** Mengambil seluruh riwayat pesanan yang diurutkan dari paling baru.
 * **Status Code:** 200 OK
 * **Bukti Pengujian:**
-<details>
-<summary>Klik untuk melihat Screenshot Postman</summary>
-
-![GET Order History](./assets/Screenshot%20(2176).png)
-
-</details>
+![Alt Text](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/917ee7e5a532aaaa7d751354cfe6a412fcd0bb07/Resources/assets/Screenshot%20(2176).png)
 
 ### 5. Tampilan Frontend
 * **Deskripsi:** Antarmuka web yang sudah terhubung dengan backend.
 * **Bukti Pengujian:**
-<details>
-<summary>Klik untuk melihat Screenshot Frontend</summary>
-
-![Tampilan Frontend](./assets/Screenshot%20(2177).png)
-
-</details>
+![Alt Text](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/917ee7e5a532aaaa7d751354cfe6a412fcd0bb07/Resources/assets/Screenshot%20(2177).png)
