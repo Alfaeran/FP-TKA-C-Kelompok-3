@@ -20,5 +20,5 @@ COPY . .
 # Expose port 5000
 EXPOSE 5000
 
-# Jalankan Gunicorn dengan 4 worker
-CMD ["gunicorn", "--workers", "4", "--bind", "0.0.0.0:5000", "--access-logfile", "-", "--error-logfile", "-", "app:app"]
+# Jalankan Gunicorn dengan 4 worker dan 100 thread per worker (mode asinkron I/O)
+CMD ["gunicorn", "--workers", "4", "--threads", "100", "--worker-class", "gthread", "--bind", "0.0.0.0:5000", "--access-logfile", "-", "--error-logfile", "-", "app:app"]
