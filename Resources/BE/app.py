@@ -22,7 +22,8 @@ Run:
 
 import os
 from datetime import datetime, timezone, timedelta
-from functools import wraps
+from functools import wraps, lru_cache
+import time
 
 import bcrypt
 import jwt
@@ -53,6 +54,10 @@ logs_col   = db["audit_logs"]
 
 def now_iso():
     return datetime.now(timezone.utc)
+
+def get_ttl_hash(seconds=10):
+    """Menghasilkan hash yang berubah setiap 'seconds' detik untuk caching"""
+    return round(time.time() / seconds)
 
 def serialize(doc: dict) -> dict:
     """Konversi ObjectId dan datetime ke string agar JSON-serializable."""
@@ -187,6 +192,17 @@ def me():
 # PRODUCT endpoints (public read, admin write)
 # ═══════════════════════════════════════════
 
+@lru_cache(maxsize=128)
+def _get_products_cached(query_str, page, limit, sort_key, sort_dir, ttl_hash):
+    import json
+    query = json.loads(query_str)
+    total = prods_col.count_documents(query)
+    docs  = list(prods_col.find(query, {"_id": 1, "name": 1, "category": 1, "price": 1,
+                                        "stock": 1, "rating": 1, "rating_count": 1, "image_url": 1})
+                 .sort(sort_key, sort_dir).skip((page-1)*limit).limit(limit))
+    return {"page": page, "limit": limit, "total": total,
+            "total_pages": -(-total // limit), "data": [serialize(d) for d in docs]}
+
 @app.route("/products", methods=["GET"])
 def list_products():
     query  = {"is_active": True}
@@ -207,12 +223,9 @@ def list_products():
                 "rating": ("rating", DESCENDING), "newest": ("created_at", DESCENDING)}
     sort_key, sort_dir = sort_map.get(request.args.get("sort", "newest"), ("created_at", DESCENDING))
 
-    total = prods_col.count_documents(query)
-    docs  = list(prods_col.find(query, {"_id": 1, "name": 1, "category": 1, "price": 1,
-                                        "stock": 1, "rating": 1, "rating_count": 1, "image_url": 1})
-                 .sort(sort_key, sort_dir).skip((page-1)*limit).limit(limit))
-    return jsonify({"page": page, "limit": limit, "total": total,
-                    "total_pages": -(-total // limit), "data": [serialize(d) for d in docs]})
+    import json
+    res = _get_products_cached(json.dumps(query), page, limit, sort_key, sort_dir, get_ttl_hash(15))
+    return jsonify(res)
 
 
 @app.route("/products/<product_id>", methods=["GET"])
@@ -488,9 +501,8 @@ def delete_user(user_id):
 # ADMIN — Dashboard statistik
 # ═══════════════════════════════════════════
 
-@app.route("/admin/stats", methods=["GET"])
-@admin_required
-def admin_stats():
+@lru_cache(maxsize=4)
+def _get_admin_stats_cached(ttl_hash):
     # Revenue & order count by status
     status_pipeline = [
         {"$group": {
@@ -554,7 +566,7 @@ def admin_stats():
 
     total_rev  = sum(s.get("total_revenue", 0) for s in by_status if s["_id"] == "completed")
 
-    return jsonify({
+    return {
         "summary": {
             "total_orders":  total_orders,
             "total_revenue": total_rev,
@@ -566,7 +578,14 @@ def admin_stats():
         "top_products": [serialize(p) for p in top_products],
         "monthly":      [serialize(m) for m in monthly],
         "by_city":      [serialize(c) for c in by_city],
-    })
+    }
+
+@app.route("/admin/stats", methods=["GET"])
+@admin_required
+def admin_stats():
+    # Cache aggregasi berat selama 15 detik
+    res = _get_admin_stats_cached(get_ttl_hash(15))
+    return jsonify(res)
 
 
 @app.route("/admin/logs", methods=["GET"])
