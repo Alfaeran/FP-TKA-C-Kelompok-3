@@ -11,7 +11,7 @@ services:
       dockerfile: Dockerfile
     container_name: ecommerce-backend
     environment:
-      - MONGO_URI=${MONGO_URI:-mongodb://host.docker.internal:27017/}
+      - MONGO_URI=${MONGO_URI:-mongodb://10.0.0.5:27017/}
       - JWT_SECRET=${JWT_SECRET:-ganti-ini-di-production}
     ports:
       - "5000:5000"
