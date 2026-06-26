@@ -1,5 +1,7 @@
 # FINAL PROJECT TEKNOLOGI KOMPUTASI AWAN 2026
 
+## Anggota Kelompok
+
 | Nama | NRP | 
 |---|---|
 | Aras Rizky Ananta | 5027221053 |
@@ -10,6 +12,22 @@
 | Binar Najmuddin Mahya | 5027241101 |
 | M Alfaeran Auriga Ruswandi | 5027241115 |
 | Zahra Hafizhah | 5027241121 |
+
+## Introduction
+
+Perusahaan rintisan e‑commerce membutuhkan Order Processing Service, layanan backend inti yang menangani pembuatan pesanan, pengecekan status, dan riwayat transaksi. Layanan ini harus mampu bertahan menghadapi lonjakan traffic (flash sale/promo) secara andal dan efisien biaya, dengan batas anggaran maksimal 1,3 juta rupiah/bulan (≈ 75 US$).
+
+Sebagai Cloud Engineer, kelompok kami merancang, men-deploy, dan menguji arsitektur backend Flask + Gunicorn, database MongoDB, serta frontend statis sederhana, di atas infrastruktur Microsoft Azure. Tujuan akhir adalah memperoleh konfigurasi yang mampu menghasilkan RPS (request per second) tertinggi dengan failure rate 0%, sekaligus tetap berada dalam batas anggaran yang ditentukan.
+
+## Arsitektur Cloud
+
+[ Diagram Arsitektur ]
+
+## Tabel Spesifikasi VM dan Estimasi Biaya
+
+## Hasil Pengujian Endpoint
+Pengujian fungsional dilakukan menggunakan Postman terhadap IP publik VM1 (http://52.184.80.233) untuk memastikan seluruh endpoint berjalan sesuai spesifikasi sebelum load testing dilakukan.
+
  
 ## A. Cakupan Capaian Pembelajaran Mata Kuliah (CPMK)
 
