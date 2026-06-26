@@ -47,7 +47,7 @@ Sebagai Cloud Engineer, kelompok kami merancang, men-deploy, dan mengoptimalkan 
 Arsitektur dipilih berdasarkan dua pertimbangan utama: **performa** dan **efisiensi biaya**.
 
 - **Pemisahan database ke VM terpisah** menghilangkan resource contention antara proses aplikasi dan I/O database, sehingga query MongoDB tidak bersaing CPU/memory dengan Gunicorn workers.
-- **Multiple VM backend + load balancer** memungkinkan horizontal scaling — traffic didistribusikan merata ke beberapa instance aplikasi menggunakan strategi least connection.
+- **Single VM backend + load balancer** memungkinkan horizontal scaling — traffic didistribusikan merata ke beberapa instance aplikasi menggunakan strategi round-robin, karena menggunakan VM dengan spesifikasi yang sama.
 - **Gunicorn gthread worker** dipilih karena cocok untuk workload I/O-bound (banyak request database), dengan konfigurasi 5 workers × 100 threads per VM memberikan kapasitas concurrent request yang tinggi.
 - Keseluruhan konfigurasi dirancang agar total biaya tidak melebihi batas anggaran $75/bulan.
 
@@ -133,7 +133,6 @@ Nginx dikonfigurasi pada `vm-lb` dengan strategi **Round-robbin**:
 
 ```nginx
 upstream backend_servers {
-    least_conn;
     server 10.0.0.4:5000;
     keepalive 64;
 }
