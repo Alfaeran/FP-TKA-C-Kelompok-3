@@ -1,5 +1,16 @@
 # FINAL PROJECT TEKNOLOGI KOMPUTASI AWAN 2026
 
+| Nama | NRP | 
+|---|---|
+| Aras Rizky Ananta | 5027221053 |
+| Tasya Aulia Darmawan | 5027241009 |
+| Nisrina Bilqis | 5027241054 |
+| Ananda Widi Alrafi | 5027241067 |
+| M Khairul Yahya | 5027241092 |
+| Binar Najmuddin Mahya | 5027241101 |
+| M Alfaeran Auriga Ruswandi | 5027241115 |
+| Zahra Hafizhah | 5027241121 |
+ 
 ## A. Cakupan Capaian Pembelajaran Mata Kuliah (CPMK)
 
 1. Mampu memahami dan menerapkan berbagai servis pada layanan awan.
