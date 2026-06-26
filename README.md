@@ -35,14 +35,13 @@ Sebagai Cloud Engineer, kelompok kami merancang, men-deploy, dan mengoptimalkan 
 
 | No | Nama VM | Role | vCPU | RAM | Harga/bulan |
 |---|---|---|---|---|---|
-| 1 | vm-lb | Load Balancer (Nginx) | … | … | $… |
-| 2 | vm-app-1 | Backend (Flask + Gunicorn) | 2 | … | $… |
-| 3 | vm-app-2 | Backend (Flask + Gunicorn) | 2 | … | $… |
-| 4 | vm-app-3 | Backend (Flask + Gunicorn) | 2 | … | $… |
-| 5 | vm-db | Database (MongoDB) | … | … | $… |
-| | | **Total** | | | **$…** |
+| 1 | vm-lb | Load Balancer (Nginx) | 2 | 4 | $31,24 |
+| 2 | vm-app-1 | Backend (Flask + Gunicorn) | 2 | 4 | $31,24 |
+| 3 | vm-app-2 | Backend (Flask + Gunicorn) | 2 | 4 |  |
+| 4 | vm-app-3 | Backend (Flask + Gunicorn) | 2 | 4 |  |
+| 5 | vm-db | Database (MongoDB) | 2 | 4 | $31,24 |
+| | | **Total** | | | **$93,72** |
 
->  GANTIII DULU INIII Sesuaikan spesifikasi dan harga dengan Azure Pricing Calculator hehe gtw yg mn
 
 ### Alasan Pemilihan Konfigurasi
 
@@ -59,7 +58,7 @@ Arsitektur dipilih berdasarkan dua pertimbangan utama: **performa** dan **efisie
 
 ### 3.1 Setup VM dan Koneksi
 
-> TAMBAHIN FOTOOOOO **[SCREENSHOT: Azure Portal — daftar semua VM yang berjalan]**
+**<img width="2854" height="1626" alt="image" src="https://github.com/user-attachments/assets/e184098b-c36e-4296-b26f-351f35c07d4d" />**
 
 Seluruh VM di-provisioning melalui Microsoft Azure dengan OS Ubuntu 22.04 LTS. Koneksi antar VM menggunakan private IP dalam satu Virtual Network.
 
@@ -127,7 +126,7 @@ Penjelasan parameter:
 - `--timeout 120` : mencegah premature kill saat load tinggi
 - `--keep-alive 5` : reuse koneksi HTTP untuk efisiensi
 
-> 📸 **[SCREENSHOT: output `docker ps` di salah satu vm-app — menunjukkan container running]**
+**<img width="2294" height="246" alt="image" src="https://github.com/user-attachments/assets/234bf7ce-29db-4ea4-ad7f-6409bb76f59a" />**
 
 ### 3.4 Konfigurasi Load Balancer (Nginx)
 
@@ -162,7 +161,7 @@ server {
 }
 ```
 
-> 📸 **[SCREENSHOT: output `nginx -t` menunjukkan syntax ok]**
+**<img width="996" height="100" alt="image" src="https://github.com/user-attachments/assets/8c6055fa-f016-413a-bc2a-e681e10024a3" />**
 
 ### 3.5 Deploy Frontend
 
@@ -177,7 +176,7 @@ docker compose up -d frontend
 
 ---
 
-## 4. Hasil Pengujian Endpoint pls masukin foto2nya irul ke sini ya
+## 4. Hasil Pengujian Endpoint
 
 Pengujian fungsional dilakukan menggunakan Postman terhadap IP publik `http://52.184.80.233` untuk memastikan seluruh endpoint berjalan sesuai spesifikasi sebelum load testing dilakukan.
 
