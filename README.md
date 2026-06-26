@@ -94,7 +94,7 @@ print('All indexes created!');
 "
 ```
 
-> 📸 **[SCREENSHOT: output `All indexes created!` di terminal]**
+> **<img width="970" height="246" alt="image" src="https://github.com/user-attachments/assets/e53f51d1-ed36-488e-a4de-7132a92644b9" />**
 
 ### 3.3 Deploy Backend (Flask + Gunicorn + Docker)
 
