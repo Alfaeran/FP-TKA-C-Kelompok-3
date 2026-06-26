@@ -37,9 +37,7 @@ Sebagai Cloud Engineer, kelompok kami merancang, men-deploy, dan mengoptimalkan 
 |---|---|---|---|---|---|
 | 1 | vm-lb | Load Balancer (Nginx) | 2 | 4 | $31,24 |
 | 2 | vm-app-1 | Backend (Flask + Gunicorn) | 2 | 4 | $31,24 |
-| 3 | vm-app-2 | Backend (Flask + Gunicorn) | 2 | 4 |  |
-| 4 | vm-app-3 | Backend (Flask + Gunicorn) | 2 | 4 |  |
-| 5 | vm-db | Database (MongoDB) | 2 | 4 | $31,24 |
+| 3 | vm-db | Database (MongoDB) | 2 | 4 | $31,24 |
 | | | **Total** | | | **$93,72** |
 
 
@@ -130,14 +128,12 @@ Penjelasan parameter:
 
 ### 3.4 Konfigurasi Load Balancer (Nginx)
 
-Nginx dikonfigurasi pada `vm-lb` sebagai reverse proxy dengan strategi **least connection**:
+Nginx dikonfigurasi pada `vm-lb` dengan strategi **Round-robbin**:
 
 ```nginx
 upstream backend_servers {
     least_conn;
-    server [IP_VM_APP_1]:5000;
-    server [IP_VM_APP_2]:5000;
-    server [IP_VM_APP_3]:5000;
+    server 10.0.0.4:5000;
     keepalive 64;
 }
 
@@ -159,6 +155,7 @@ server {
         proxy_read_timeout 120s;
     }
 }
+
 ```
 
 **<img width="996" height="100" alt="image" src="https://github.com/user-attachments/assets/8c6055fa-f016-413a-bc2a-e681e10024a3" />**
@@ -186,7 +183,7 @@ Request body dikirim dalam format JSON dengan field `product`, `quantity`, dan `
 
 ![image alt](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/400af333f3eea3aeb8b847578f22fa877dae3086/Resources/assets/Screenshot%20(2172).png)
 
-### GET /order/{order_id} — Get Order Statu
+### GET /order/{order_id} — Get Order Status
 
 Request menggunakan `order_id` dari hasil POST sebelumnya. Server mengembalikan response **200 OK** dengan seluruh detail pesanan.
 
