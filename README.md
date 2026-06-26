@@ -28,7 +28,8 @@ Sebagai Cloud Engineer, kelompok kami merancang, men-deploy, dan mengoptimalkan 
 
 ### Diagram Arsitektur
 
-> <img width="1600" height="311" alt="image" src="https://github.com/user-attachments/assets/864c3776-e630-4e9e-8b35-af4358eb316f" />
+> <img width="1838" height="352" alt="image" src="https://github.com/user-attachments/assets/b27c35e8-1e2d-4487-9a7f-1ba17e37b594" />
+
 
 
 ### Tabel Spesifikasi VM dan Estimasi Biaya
@@ -56,7 +57,7 @@ Arsitektur dipilih berdasarkan dua pertimbangan utama: **performa** dan **efisie
 
 ### 3.1 Setup VM dan Koneksi
 
-**<img width="2854" height="1626" alt="image" src="https://github.com/user-attachments/assets/e184098b-c36e-4296-b26f-351f35c07d4d" />**
+> **<img width="2854" height="1626" alt="image" src="https://github.com/user-attachments/assets/e184098b-c36e-4296-b26f-351f35c07d4d" />**
 
 Seluruh VM di-provisioning melalui Microsoft Azure dengan OS Ubuntu 22.04 LTS. Koneksi antar VM menggunakan private IP dalam satu Virtual Network.
 
@@ -124,7 +125,7 @@ Penjelasan parameter:
 - `--timeout 120` : mencegah premature kill saat load tinggi
 - `--keep-alive 5` : reuse koneksi HTTP untuk efisiensi
 
-**<img width="2294" height="246" alt="image" src="https://github.com/user-attachments/assets/234bf7ce-29db-4ea4-ad7f-6409bb76f59a" />**
+> **<img width="2294" height="246" alt="image" src="https://github.com/user-attachments/assets/234bf7ce-29db-4ea4-ad7f-6409bb76f59a" />**
 
 ### 3.4 Konfigurasi Load Balancer (Nginx)
 
@@ -158,7 +159,7 @@ server {
 
 ```
 
-**<img width="996" height="100" alt="image" src="https://github.com/user-attachments/assets/8c6055fa-f016-413a-bc2a-e681e10024a3" />**
+> **<img width="996" height="100" alt="image" src="https://github.com/user-attachments/assets/8c6055fa-f016-413a-bc2a-e681e10024a3" />**
 
 ### 3.5 Deploy Frontend
 
