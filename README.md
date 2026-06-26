@@ -185,38 +185,38 @@ Pengujian fungsional dilakukan menggunakan Postman terhadap IP publik `http://52
 
 Request body dikirim dalam format JSON dengan field `product`, `quantity`, dan `price`. Server mengembalikan response **201 CREATED** beserta data pesanan lengkap termasuk `order_id` yang di-generate otomatis, `total` hasil kalkulasi, `status` awal `"pending"`, dan `created_at` timestamp.
 
-![POST /order - 201 CREATED](result/post_order.png)
+![image alt](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/400af333f3eea3aeb8b847578f22fa877dae3086/Resources/assets/Screenshot%20(2172).png)
 
-### GET /order/{order_id} — Get Order Status
+### GET /order/{order_id} — Get Order Statu
 
 Request menggunakan `order_id` dari hasil POST sebelumnya. Server mengembalikan response **200 OK** dengan seluruh detail pesanan.
 
-![GET /order/{id} - 200 OK](result/get_order_detail.png)
+![image alt](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/400af333f3eea3aeb8b847578f22fa877dae3086/Resources/assets/Screenshot%20(2173).png)
 
 ### GET /order/{order_id} — Order Not Found
 
 Ketika `order_id` tidak ditemukan di database, server mengembalikan response **404 NOT FOUND** dengan pesan `"Order not found"`.
 
-![GET /order/{id} - 404 NOT FOUND](result/get_order_notfound.png)
+![image alt](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/400af333f3eea3aeb8b847578f22fa877dae3086/Resources/assets/Screenshot%20(2174).png)
 
 ### PUT /order/{order_id} — Update Order Status
 
 Request body dikirim dengan field `status: "completed"`. Server mengembalikan response **200 OK** dengan `order_id` dan status yang telah diperbarui.
 
-![PUT /order/{id} - 200 OK](result/put_order_status.png)
+![image alt](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/400af333f3eea3aeb8b847578f22fa877dae3086/Resources/assets/Screenshot%20(2175).png)
 
 ### GET /orders — Get Order History
 
 Server mengembalikan response **200 OK** berupa array seluruh riwayat pesanan, diurutkan dari yang terbaru. Response time tercatat **64 ms**.
 
-![GET /orders - 200 OK](result/get_orders.png)
+![image alt](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/400af333f3eea3aeb8b847578f22fa877dae3086/Resources/assets/Screenshot%20(2176).png)
 
 ### Tampilan Frontend
 
 Antarmuka frontend dapat diakses melalui browser di `http://52.184.80.233`. Halaman menyediakan form **Buat Pesanan Baru** (input nama produk, jumlah, harga satuan) dan form **Cek Status Pesanan** (input order_id).
 
-![Frontend - Order Processing Service](result/frontend.png)
----
+![image alt](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/400af333f3eea3aeb8b847578f22fa877dae3086/Resources/assets/Screenshot%20(2177).png)
+
 
 ## 5. Hasil Load Testing
 
