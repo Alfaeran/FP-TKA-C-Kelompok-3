@@ -213,6 +213,7 @@ Antarmuka frontend dapat diakses melalui browser di `http://52.184.80.233`. Hala
 
 ![image alt](https://github.com/Alfaeran/FP-TKA-C-Kelompok-3/blob/400af333f3eea3aeb8b847578f22fa877dae3086/Resources/assets/Screenshot%20(2177).png)
 
+---
 
 ## 5. Hasil Load Testing
 
@@ -228,7 +229,8 @@ Load testing dilakukan menggunakan **Locust** dari komputer/host yang berbeda da
 
 | Parameter | Nilai |
 |---|---|
-| Metode | Ramp bertahap (naik per round) |
+| Users | 300 |
+| Spawn Rate | 5/s |
 | Durasi | 60 detik |
 | **Avg RPS Tertinggi** | **113.63 RPS** |
 | Failure Rate | **0%** |
@@ -242,11 +244,10 @@ Load testing dilakukan menggunakan **Locust** dari komputer/host yang berbeda da
 | Users | 3.000 |
 | Spawn Rate | 50/s |
 | Durasi | 60 detik |
-| Failure muncul pada | 1.550 concurrent users |
-| **Peak 0% Failure** | **1.500 users** |
-| RPS saat failure | 452.9 |
+| **RPS 0% Failure** | **207.5 RPS** |
+| Failure Rate | **0%** |
 
-> <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/db5650a2-f059-4388-aca4-60342fe6839f" />
+> <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/a267b640-86f8-485f-9eec-617b8125fcd2" />
 
 ### Skenario 3 — Peak Concurrency (Spawn Rate 100)
 
@@ -255,11 +256,10 @@ Load testing dilakukan menggunakan **Locust** dari komputer/host yang berbeda da
 | Users | 6.000 |
 | Spawn Rate | 100/s |
 | Durasi | 60 detik |
-| Failure muncul pada | 1.700 concurrent users |
-| **Peak 0% Failure** | **1.600 users** |
-| RPS saat failure | 436.89 |
+| **RPS 0% Failure** | **326.11 RPS** |
+| Failure Rate | **0%** |
 
-> <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/a6367653-7a37-4408-936a-2358b22ad851" />
+> <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/7d8f138b-03eb-4bc5-a9de-bfe0fd52a447" />
 
 ### Skenario 4 — Peak Concurrency (Spawn Rate 200)
 
@@ -268,11 +268,10 @@ Load testing dilakukan menggunakan **Locust** dari komputer/host yang berbeda da
 | Users | 12.000 |
 | Spawn Rate | 200/s |
 | Durasi | 60 detik |
-| Failure muncul pada | 2.400 concurrent users |
-| **Peak 0% Failure** | **2.200 users** |
-| RPS saat failure | 501.02 |
+| **RPS 0% Failure** | **330.3 RPS** |
+| Failure Rate | **0%** |
 
-> <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/0df594e1-568b-4606-ac42-b5075023bb79" />
+> <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/ff793b2d-fff4-4513-92b0-f078e5566959" />
 
 ### Skenario 5 — Peak Concurrency (Spawn Rate 500)
 
@@ -281,35 +280,34 @@ Load testing dilakukan menggunakan **Locust** dari komputer/host yang berbeda da
 | Users | 30.000 |
 | Spawn Rate | 500/s |
 | Durasi | 60 detik |
-| Failure muncul pada | 9.500 concurrent users |
-| **Peak 0% Failure** | **9.000 users** |
-| RPS saat failure | 365.98 |
+| Failure muncul pada | 27.000 concurrent users |
+| **Peak 0% Failure** | **27.000 users** |
+| RPS saat failure | 204.77 |
 
-> <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/c908c241-01d0-4556-b1e6-f78085511dff" />
+> <img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/d6a983b1-af06-4707-99bf-0ea668955c25" />
 
 ### Rekapitulasi Hasil
 
-| Skenario | Spawn Rate | Peak 0% Failure | RPS saat Failure |
+| Skenario | Spawn Rate | Peak 0% Failure | RPS |
 |---|---|---|---|
 | 1 — Max RPS | — | **113.63 RPS** | 0% failure |
-| 2 | 50 | 1.500 users | 452.9 |
-| 3 | 100 | 1.600 users | 436.89 |
-| 4 | 200 | 2.200 users | 501.02 |
-| 5 | 500 | 9.000 users | 365.98 |
+| 2 | 50 | 0% failure | 207.5 |
+| 3 | 100 | 0% failure | 326.11 |
+| 4 | 200 | 0% failure | 330.3 |
+| 5 | 500 | 27.000 users | 204.77 |
 
 ### Analisis
 
 **Skenario 1** menghasilkan rata-rata RPS 113.63 dengan 0% failure. Berdasarkan rubrik penilaian: `(113.63 / 200) × 30 = **17,04 poin**`.
 
-**Skenario 2–4** menunjukkan pola konsisten: semakin tinggi spawn rate, sistem mendapatkan tekanan lebih cepat namun peak concurrency sebelum failure juga meningkat seiring optimasi yang diterapkan. Peak tertinggi skenario 4 (501.02 RPS) mengindikasikan distribusi load yang efektif dari load balancer.
+**Skenario 2–4** menunjukkan peningkatan RPS yang konsisten seiring naiknya spawn rate, dari 207.5 RPS hingga 330.3 RPS, seluruhnya dengan 0% failure. Ini mengindikasikan distribusi load yang efektif dari load balancer dan kapasitas backend yang masih mampu menangani beban tersebut tanpa error.
 
-**Skenario 5** mencatat peak concurrency tertinggi di 9.000 users sebelum failure. Ini karena dengan spawn rate 500, request terdistribusi lebih merata ke seluruh backend workers dibanding spawn rate rendah yang cenderung membanjiri antrian lebih cepat.
+**Skenario 5** mencatat peak concurrency tertinggi di 27.000 users sebelum failure muncul. Dengan spawn rate 500, request terdistribusi lebih merata ke seluruh backend workers, sehingga sistem mampu bertahan jauh lebih lama dibanding skenario dengan spawn rate lebih rendah.
 
 Peningkatan performa signifikan dibandingkan konfigurasi awal dicapai melalui tiga optimasi utama:
 1. **Gunicorn workers 4→5 + timeout/keep-alive tuning** — menambah kapasitas concurrent handling per VM
 2. **MongoDB indexing** — mempercepat query `GET /orders` yang menjadi bottleneck utama saat data terakumulasi
 3. **Nginx keepalive + HTTP/1.1** — mengurangi overhead connection setup antar Nginx dan backend
-
 ---
 
 ## 6. Kesimpulan dan Saran
@@ -318,8 +316,8 @@ Peningkatan performa signifikan dibandingkan konfigurasi awal dicapai melalui ti
 
 Arsitektur yang diimplementasikan — **3 VM backend + 1 load balancer + 1 VM database** di Microsoft Azure — berhasil menangani beban traffic tinggi dengan konfigurasi yang efisien dan dalam batas anggaran. Hasil load testing menunjukkan:
 
-- **RPS maksimum 0% failure: 113.63 RPS**
-- **Peak concurrency tertinggi: 9.000 concurrent users** (skenario 5)
+- **RPS maksimum 0% failure: 330.3 RPS** (skenario 4)
+- **Peak concurrency tertinggi: 27.000 concurrent users** (skenario 5)
 - Optimasi Gunicorn, MongoDB indexing, dan Nginx tuning secara kolektif meningkatkan throughput skenario 2–5 sebesar **4–6× dibanding konfigurasi awal**
 
 ### Saran untuk Deployment Nyata
